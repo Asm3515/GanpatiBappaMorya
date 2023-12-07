@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Project = require('./Models/Data_Projects');
 const userRouter = require("./Routes/Routes.js")
+const bodyParser = require('body-parser');
 
 
 const cors = require('cors');
@@ -11,9 +12,19 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+
 
 
 app.use("/user", userRouter);
+
+//requiring the routes
+app.use('/', require('./Routes/courseRoutes'));
+app.use('/', require('./Routes/batchRoutes'));
+app.use('/', require('./Routes/eventRoutes'));
+app.use('/', require('./Routes/appointment'));
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://morea04:itsmyproject@cluster10.wmnsldw.mongodb.net/mydatabase?retryWrites=true&w=majority', {
@@ -48,6 +59,8 @@ app.get('/projects', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 // Start the server
 app.listen(3000, () => {
