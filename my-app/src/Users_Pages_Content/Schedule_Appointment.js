@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from '../Images/Logo.png'
 import '../Css/Project.css'
@@ -8,21 +8,49 @@ const paths = {
 };
 
 const Schedule_Appointment = () => {
-  const [projects, setProjects] = useState([]);
+  const [formData, setFormData] = useState({
+    reason: "",
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    time: "",
+  });
 
-  const fetchProjects = useCallback(async () => {
+  const [message, setMessage] = useState("");
+  const [isAppointmentScheduled, setIsAppointmentScheduled] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await fetch("http://localhost:3000/projects");
-      const data = await response.json();
-      setProjects(data);
-    } catch (error) {
-      console.error("Error fetching projects:", error);
-    }
-  }, []);
+      const response = await fetch("http://localhost:3000/appointment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-  useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+      if (response.ok) {
+        setMessage("Appointment scheduled successfully");
+        setIsAppointmentScheduled(true);
+      } else {
+        setMessage("Failed to schedule appointment");
+      }
+    } catch (error) {
+      console.error("Error scheduling appointment:", error);
+      setMessage("An error occurred");
+    }
+  };
 
   const onHOMETextClick = useCallback(() => {
     // Please sync "Desktop - 1" to the project
@@ -47,13 +75,72 @@ const Schedule_Appointment = () => {
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
       <b className="Name-tag">Projects Data:</b>
       <div className="desktop-4-item">
-        {projects.length > 0 ? (
-          <div>
-            
-          </div>
-        ) : (
-          <p>No projects found.</p>
-        )}
+        <div className="Schedule">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Reason:
+              <input
+                type="text"
+                name="reason"
+                value={formData.reason}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Name:
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Phone:
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Date:
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Time:
+              <input
+                type="text"
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <button type="submit">Schedule Appointment</button>
+          </form>
+          {isAppointmentScheduled && <p>Appointment scheduled successfully!</p>}
+        </div>
       </div>
       <b className="sweet-water-fortwayne-container">
         <p className="sweet-water-fortwayne">&nbsp;</p>

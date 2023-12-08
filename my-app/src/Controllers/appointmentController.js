@@ -40,11 +40,15 @@ module.exports.create = async function(req, res) {
 //controller function for deleting the product
 module.exports.delete = function(req, res) {
 
-    Appointment.remove({
-      _id: req.params.id
-    }, function(err, appointment) {
-      if (err)
-        return res.send(err);
+    Appointment.findOneAndDelete({ _id: req.params.id })
+    .exec()
+    .then(appointment => {
+      if (!appointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
       return res.json({ message: 'Appointment successfully deleted' });
-    });
+    })
+    .catch(err => {
+      return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    });
 };

@@ -24,6 +24,7 @@ module.exports.create = async function(req, res) {
 
         const new_event = new Event({ name, date, time });
         let event_x = await new_event.save();
+        
         return res.json(200,{
             message: "event created successfully",
             event: event_x

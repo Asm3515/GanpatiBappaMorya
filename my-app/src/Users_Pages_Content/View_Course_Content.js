@@ -1,28 +1,29 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from '../Images/Logo.png'
-import '../Css/Project.css'
+import Logo from '../Images/Logo.png';
+import '../Css/Project.css';
 
 const paths = {
   Home: "/",
 };
 
 const View_Course_Content = () => {
-  const [projects, setProjects] = useState([]);
+  const [courses, setCourses] = useState([]);
 
-  const fetchProjects = useCallback(async () => {
+  const fetchCourses = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:3000/projects");
+      const response = await fetch("http://localhost:3000/course");
       const data = await response.json();
-      setProjects(data);
+      setCourses(data.course);
+      console.log(data)
     } catch (error) {
-      console.error("Error fetching projects:", error);
+      console.error("Error fetching courses:", error);
     }
   }, []);
 
   useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+    fetchCourses();
+  }, [fetchCourses]);
 
   const onHOMETextClick = useCallback(() => {
     // Please sync "Desktop - 1" to the project
@@ -45,14 +46,29 @@ const View_Course_Content = () => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Projects Data:</b>
+      <b className="Name-tag">Course Contents:</b>
       <div className="desktop-4-item">
-        {projects.length > 0 ? (
-          <div>
-            
-          </div>
+        {courses.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Material</th>
+                <th>Batch</th>
+              </tr>
+            </thead>
+            <tbody>
+              {courses.map(course => (
+                <tr key={course._id}>
+                  <td>{course.course}</td>
+                  <td>{course.material}</td>
+                  <td>{course.batch}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
-          <p>No projects found.</p>
+          <p>No courses found.</p>
         )}
       </div>
       <b className="sweet-water-fortwayne-container">

@@ -35,4 +35,5 @@ router.delete('/event/:id',eventController.delete);
 //router for updating the product
 router.post('/event/:id',eventController.update);
 
+
 module.exports = router;

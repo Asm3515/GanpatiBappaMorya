@@ -134,3 +134,14 @@ th {
   position: relative;
   Z-index : 100;
 }
+
+.Schedule{
+  position: relative;
+  Z-index : 100;
+}
+
+
+.cancel_app{
+  position: relative;
+  Z-index : 100;
+}
