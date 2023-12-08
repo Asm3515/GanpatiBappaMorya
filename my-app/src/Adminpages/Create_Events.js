@@ -95,7 +95,6 @@ const Create_Batch = () => {
           style={{zIndex: 100}}
         />
       </label>
-      <button type="submit">Submit</button>
       <label>
         Date:
         <input
@@ -106,7 +105,6 @@ const Create_Batch = () => {
           style={{zIndex: 100}}
         />
       </label>
-      <button type="submit">Submit</button>
       <label>
         Time:
         <input
@@ -119,6 +117,7 @@ const Create_Batch = () => {
       </label>
       <button type="submit">Submit</button>
     </form>
+    
       </div>
       <b className="sweet-water-fortwayne-container">
         <p className="sweet-water-fortwayne">&nbsp;</p>

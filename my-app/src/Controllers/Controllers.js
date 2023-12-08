@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const getAllUsers = async (req, res, next) => {
   let users;
+  console.log("users")
   try {
     users = await User.find();
   } catch (err) {

@@ -13,6 +13,7 @@ const paths = {
 
 const Courses = () => {
     const navigate = useNavigate();
+    const [currentUserType, setCurrentUserType] = useState('');
 
     // const handleSubmit = () => {
         
@@ -31,17 +32,19 @@ const Courses = () => {
 
     const handleRegister = async(e, id) => {
         e.preventDefault()
+
         const storedUser = localStorage.getItem('user');
-        console.log(id)
+        // console.log(id)
         let currentUser = null;
 
         if (storedUser) {
         currentUser = JSON.parse(storedUser);
         console.log('Current user:', currentUser);
         } else {
-            navigate('/login')
+            alert("user not found");
         }
-
+        
+        
         try {
             const response = await axios.post(
               `http://localhost:3000/event/${id}`,
@@ -66,8 +69,19 @@ const Courses = () => {
       }
     
       useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        // console.log(id)
+        let currentUser = null;
+
+        if (storedUser) {
+        currentUser = JSON.parse(storedUser);
+        console.log('Current user:', currentUser);
+        } else {
+            alert("user not found");
+        }
+        setCurrentUserType(currentUser.Type_user);
         fetchProjects()
-      },[events])
+      },[])
 
 //   const fetchProjects = async () => {
 //     try {
@@ -106,7 +120,7 @@ const Courses = () => {
       <b className="Name-tag">Projects Data:</b>
       <div className="desktop-4-item login_form">
       {/* <button type="submit" onClick={handleSubmit}>Create Batch</button> */}
-      <Link to="/Create_Events" >create events</Link>
+      {currentUserType==='Admin' && <Link to="/Create_Events" >create events</Link>}
       <br/>
       {events.length > 0 ? (
           <table>
@@ -117,8 +131,15 @@ const Courses = () => {
     return <React.Fragment key={xid}>
       <tr>
         <td colSpan="2">{eventItem.name}</td>
+        <button style={{ 
+          padding: '50px',    // Adjust padding to make the button bigger
+          backgroundColor: 'black',  // Set background color to blue
+          color: 'white',           // Set text color to white
+          border: 'none',           // Remove border
+          cursor: 'pointer'         // Add pointer cursor for better usability
+        }} onClick={(e) => {console.log(xid);handleRegister(e, xid);}}>Register</button>
       </tr>
-      <button onClick={(e) => {console.log(xid);handleRegister(e, xid);}}>Register</button>
+      
       
           {/* <td>{course.course}</td> */}
     </React.Fragment>

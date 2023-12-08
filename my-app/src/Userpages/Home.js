@@ -1,5 +1,6 @@
+import React from 'react';
 import { useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../Css/Home.css'
 import Logo from '../Images/Logo.png'
 import Professor from '../Images/Professor.png'
@@ -11,12 +12,37 @@ const paths = {
   careerCounsellingServices: "/career-counselling-services",
   courses: "/courses",
   events: "/events",
+  roles: "/roles",
+  logout: "/logout",
+  login: '/login'
 };
 
 const Home = () => {
+  const [currentUserType, setCurrentUserType] = React.useState('')
+  const navigate = useNavigate()
+  React.useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    // console.log(id)
+    let currentUse = null;
+    // user.Type_user==="Admin"
+    if (storedUser) {
+    currentUse = JSON.parse(storedUser);
+    console.log("$$$$$$$$$",currentUse)
+    setCurrentUserType(currentUse.Type_user);
+    } else {
+        console.log("user not there")
+    }
+
+  },[])
   const onStudentProjectsTextClick = useCallback(() => {
     // Please sync "Desktop - 2" to the project
   }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    alert("Logout successful");
+    navigate('/login')
+  }
 
   const onUniversitiesProfessorsCollabTextClick = useCallback(() => {
     // Please sync "Desktop - 3" to the project
@@ -60,6 +86,12 @@ const Home = () => {
       <Link to={paths.events} className="events" onClick={onEventsTextClick}>
         Events
       </Link>
+      {currentUserType==='Admin' && <Link to={paths.roles} className="roles" onClick={onEventsTextClick}>
+        Add/Remove User Roles
+      </Link>}
+      {localStorage.length!==0 && <Link to={paths.login} className="logout" onClick={()=>{onEventsTextClick();handleLogout();}}>
+        Logout
+      </Link>}
       <b className="about-drv">About Dr.V:</b>
       <div className="dr-venkata-inukollu">
         Dr. Venkata Inukollu is an assistant professor of Computer Science at

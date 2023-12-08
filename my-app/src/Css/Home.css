@@ -12,7 +12,7 @@
     left: 1215px;
     background-color: #d9d9d9;
     width: 666px;
-    height: 367px;
+    height: 467px;
   }
   .student-projects,
   .universitiesprofessors-collab {
@@ -33,6 +33,8 @@
   .career-counselling-services,
   .courses,
   .events,
+  .roles,
+  .logout,
   .industry-collaborations {
     position: absolute;
     top: 554px;
@@ -55,6 +57,14 @@
   }
   .events {
     top: 723px;
+    left: 1235px;
+  }
+  .roles {
+    top: 780px;
+    left: 1235px;
+  }
+  .logout {
+    top: 830px;
     left: 1235px;
   }
   .about-drv,
@@ -155,7 +165,7 @@
     position: relative;
     background-color: #fff;
     width: 100%;
-    height: 1181px;
+    height: 1281px;
     overflow: hidden;
     text-align: left;
     font-size: var(--font-size-13xl);

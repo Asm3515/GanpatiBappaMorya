@@ -23,7 +23,7 @@ module.exports.create = async function(req, res) {
         const {name, date, time, user} = req.body;
 
         const new_event = new Event({ name, date, time });
-        new_event.push(user)
+        new_event.user_registered.push(user)
         let event_x = await new_event.save();
         
         return res.json(200,{

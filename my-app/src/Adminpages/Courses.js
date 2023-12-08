@@ -11,21 +11,41 @@ const paths = {
 
 
 const Courses = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // const handleSubmit = () => {
         
     // }
 
+    const [currentUserType, setCurrentUserType] = useState('');
+
     const [batch, setBatch] = useState([]);
+
+    
 
     const fetchProjects = () =>{
         fetch("http://localhost:3000/batch/").then(response => response.json()).then(data => setBatch(data.batch))
         
       }
+
+      const handleRegister = () => {
+        // preventDefault();
+        navigate('/login')
+      }
     
       useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        // console.log(id)
+        let currentUse = null;
+        // user.Type_user==="Admin"
+        if (storedUser) {
+        currentUse = JSON.parse(storedUser);
+        setCurrentUserType(currentUse.Type_user);
+        } else {
+            console.log("user not there")
+        }
         fetchProjects()
+
       },[])
 
 //   const fetchProjects = async () => {
@@ -65,9 +85,9 @@ const Courses = () => {
       <b className="Name-tag">Projects Data:</b>
       <div className="desktop-4-item login_form">
       {/* <button type="submit" onClick={handleSubmit}>Create Batch</button> */}
-      <Link to="/Create_Batch" >create batch</Link>
+      {currentUserType==="Admin" && <Link to="/Create_Batch" >create batch</Link>}
       <br/>
-      <Link to="/Create_Courses" >create courses</Link>
+      {currentUserType==="Admin" && <Link to="/Create_Courses" >create courses</Link>}
       {batch.length > 0 ? (
           <table>
             
@@ -81,6 +101,13 @@ const Courses = () => {
         <tr key={course._id}>
           <td></td>
           <td>{course.course}</td>
+          <button style={{ 
+          padding: '20px',    // Adjust padding to make the button bigger
+          backgroundColor: 'black',  // Set background color to blue
+          color: 'white',           // Set text color to white
+          border: 'none',           // Remove border
+          cursor: 'pointer'         // Add pointer cursor for better usability
+        }} onClick={(e) => {console.log(course._id);handleRegister(e, course._id);}}>Register</button>
         </tr>
       ))}
     </React.Fragment>

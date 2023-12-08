@@ -17,9 +17,25 @@ import Create_Courses from './Adminpages/Create_Courses';
 import Show_Course from './Adminpages/Show_Course';
 import Courses from './Adminpages/Courses';
 import Create_Events from './Adminpages/Create_Events';
+import Roles from './Adminpages/Roles'
 
 
 function App() {
+  const [currentUserType, setCurrentUserType] = React.useState('')
+  React.useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    // console.log(id)
+    let currentUse = null;
+    // user.Type_user==="Admin"
+    if (storedUser) {
+    currentUse = JSON.parse(storedUser);
+    console.log("$$$$$$$$$",currentUse)
+    setCurrentUserType(currentUse.Type_user);
+    } else {
+        console.log("user not there")
+    }
+
+  },[])
   return (
     <div className="App">
       <Router>
@@ -45,6 +61,7 @@ function App() {
           <Route path="/Courses" element={<Courses />} />
           <Route path="/Events" element={<Events />} />
           <Route path="/Create_Events" element={<Create_Events />} />
+          {currentUserType==='Admin' && <Route path="/role" element={<Roles />} />}
           {/* Add more routes for other components/pages */}
         </Routes>
       </Router>
