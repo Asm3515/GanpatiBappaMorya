@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from '../Images/Logo.png';
 import '../Css/Project.css';
 import axios from 'axios';
+
 
 const paths = {
   Home: "/",
@@ -13,7 +14,7 @@ const password ='';
 const Login_page = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");   
-
+  const navigate = useNavigate();
   const handleLogin = async () => {
     try {
       const response = await axios.post(
@@ -25,8 +26,19 @@ const Login_page = () => {
       );
 
       const user = response.data.user;
-      console.log(`Logged in as ${user.userId}`);
+
+      localStorage.setItem('user', JSON.stringify(user));
+
+      console.log(user);
+
       // Add logic for navigation or other actions
+      if(user.Type_user==="Admin"){
+        console.log("yes")
+        navigate("/Admin_page");
+      }else{
+        navigate("/User_page");
+      }
+      
     } catch (error) {
       console.error("Login Error:", error.message);
     }
@@ -74,7 +86,7 @@ const Login_page = () => {
       </div>
       <div className="footer-btns">
         <button className="login-new-user" >
-          <a href="/signup" target="_blank" rel="noopener noreferrer">
+          <a href="/reg" target="_blank" rel="noopener noreferrer">
             New User?
           </a>
         </button>

@@ -41,14 +41,14 @@ module.exports.create = async function(req, res) {
 module.exports.delete = function(req, res) {
 
     Appointment.findOneAndDelete({ _id: req.params.id })
-    .exec()
-    .then(appointment => {
-      if (!appointment) {
-        return res.status(404).json({ message: 'Appointment not found' });
-      }
-      return res.json({ message: 'Appointment successfully deleted' });
-    })
-    .catch(err => {
-      return res.status(500).json({ message: 'Internal Server Error', error: err.message });
-    });
+  .exec()
+  .then(appointment => {
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found' });
+    }
+    return res.json({ message: 'Appointment successfully deleted' });
+  })
+  .catch(err => {
+    return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  });
 };

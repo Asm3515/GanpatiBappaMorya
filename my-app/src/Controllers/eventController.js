@@ -20,9 +20,10 @@ module.exports.list = async function(req,res){
 module.exports.create = async function(req, res) {
     console.log("#############",req.body)
     try {
-        const {name, date, time} = req.body;
+        const {name, date, time, user} = req.body;
 
         const new_event = new Event({ name, date, time });
+        new_event.push(user)
         let event_x = await new_event.save();
         
         return res.json(200,{
@@ -50,25 +51,27 @@ module.exports.delete = function(req, res) {
 };
 
 //controller function for updating the event, a sample function
-module.exports.update = function(req, res, query) {
-    Event.findOneAndUpdate({_id: req.params.id}, {new: true}, function(err, event) {
-        // Product found. Update  the quantity.
-        event.name = req.body.name;
-        event.date = req.body.date;
-        event.time = req.body.time;
-        event.save(function (error, event) {
-            if (error) {
-              console.log(error);
-            //   return res.send('Device update failed', error);
-            }
-            console.log('save was successful ? => \n', event);
-            // return res.send(error, event);
-          });
-      if (err)
-        res.send(err);
-        return res.json(200,{
-            message: "event updated successfully",
-            event: event
+module.exports.update = function (req, res, query) {
+  Event.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+    .exec()
+    .then((event) => {
+      if (!event) {
+        return res.status(404).json({
+          message: "Event not found",
         });
+      }
+      event.users.push(req.body.user)
+      console.log("Save was successful:\n", event);
+      return res.json(200, {
+        message: "Event updated successfully",
+        event: event,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.status(500).json({
+        message: "Internal Server Error",
+        error: error.message,
+      });
     });
-  };
+};

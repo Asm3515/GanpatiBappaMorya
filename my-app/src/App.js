@@ -10,7 +10,15 @@ import User_page from './Userpages/User_Page';
 import View_Course_Content from './Users_Pages_Content/View_Course_Content';
 import Schedule_Appointment from './Users_Pages_Content/Schedule_Appointment';
 import Cancel_Appointment from './Users_Pages_Content/Cancel_Appointment';
-import Events from './Userpages/Events';
+import Events from './Adminpages/Events';
+import Admin_page from './Adminpages/Admin_page';
+import Create_Batch from './Adminpages/Create_Batch';
+import Create_Courses from './Adminpages/Create_Courses';
+import Show_Course from './Adminpages/Show_Course';
+import Courses from './Adminpages/Courses';
+import Create_Events from './Adminpages/Create_Events';
+
+
 function App() {
   return (
     <div className="App">
@@ -30,6 +38,13 @@ function App() {
           <Route path="/cancel-appointment" element={<Cancel_Appointment />} />
           <Route path="/events" element={<Events />} />
           
+          <Route path="/Admin_page" element={<Admin_page />} />
+          <Route path="/Create_Batch" element={<Create_Batch />} />
+          <Route path="/Create_Courses" element={<Create_Courses />} />
+          <Route path="/Show_Course" element={<Show_Course />} />
+          <Route path="/Courses" element={<Courses />} />
+          <Route path="/Events" element={<Events />} />
+          <Route path="/Create_Events" element={<Create_Events />} />
           {/* Add more routes for other components/pages */}
         </Routes>
       </Router>
