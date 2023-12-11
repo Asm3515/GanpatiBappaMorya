@@ -65,24 +65,23 @@ const Login_page = () => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Industry Collaboration :</b>
+      <b className="Name-tag">LOGIN</b>
       <div className="desktop-4-item">
         <div className="login_form">
-        <h2>Login</h2>
-        <input
+        <input className="input"
           type="text"
           placeholder="User ID"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
         />
-        <input
+        <input className="input"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           
         />
-        <button onClick={handleLogin}>Login</button>
+        <button  className ="button" onClick={handleLogin}>Login</button>
       </div>
       <div className="footer-btns">
         <button className="login-new-user" >

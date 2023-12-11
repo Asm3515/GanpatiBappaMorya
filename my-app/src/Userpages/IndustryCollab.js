@@ -47,17 +47,20 @@ const IndustryCollab = () => {
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
       <b className="Name-tag">Industry Collaboration :</b>
       <div className="desktop-4-item">
+        <div className="Links_Jesus">
         {projects.length > 0 ? (
           <table>
           <thead>
             <tr>
               <th>Company Name</th>
+              <th>Company Link</th>
             </tr>
           </thead>
           <tbody>
             {projects.map((project) => (
               <tr key={project._id}>
                 <td>{project.industry_name}</td>
+                <td><href>{project.industry_link}</href></td>
               </tr>
             ))}
           </tbody>
@@ -65,6 +68,7 @@ const IndustryCollab = () => {
         ) : (
           <p>No projects found.</p>
         )}
+        </div>
       </div>
       <b className="sweet-water-fortwayne-container">
         <p className="sweet-water-fortwayne">&nbsp;</p>

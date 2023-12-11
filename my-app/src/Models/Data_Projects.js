@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { link } = require('../Routes/Routes');
 
 const projectSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,11 @@ const projectSchema = new mongoose.Schema({
   industry_name :{
     type: String,
     required: false
+  },
+  industry_link:{
+    type: String,
+    required :false
+
   }
 
 });

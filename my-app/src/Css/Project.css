@@ -145,3 +145,37 @@ th {
   position: relative;
   Z-index : 100;
 }
+
+
+
+.button{
+  position : relative;
+  width: 220px;
+  height: 50px;
+  background-color:cadetblue;
+}
+
+
+.input{
+  position: relative;
+  width: 220px;
+  height: 15px;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px;
+  
+}
+
+.login-new-user{
+  position: relative;
+  width: 220px;
+  height: 15px;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px;
+}
+
+.Links_Jesus{
+  z-index: 100;
+  position: relative;
+}
