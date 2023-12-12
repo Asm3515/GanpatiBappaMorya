@@ -45,7 +45,7 @@ const Courses = () => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Projects Data:</b>
+      <b className="Name-tag">Courses Availble:</b>
       <div className="desktop-4-item">
         {projects.length > 0 ? (
           <table>

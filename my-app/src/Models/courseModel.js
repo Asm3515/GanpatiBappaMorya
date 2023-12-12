@@ -13,7 +13,8 @@ const courseSchema = new mongoose.Schema({
     batch: {
         type: String,
         required: true
-    }
+    },
+    user_registered: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 },{
     timestamps: true
 });

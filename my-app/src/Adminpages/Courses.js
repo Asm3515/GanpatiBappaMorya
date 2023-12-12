@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from '../Images/Logo.png'
 import '../Css/Project.css'
+import axios from 'axios';
 
 const paths = {
   Home: "/",
@@ -20,6 +21,7 @@ const Courses = () => {
     const [currentUserType, setCurrentUserType] = useState('');
 
     const [batch, setBatch] = useState([]);
+    const [currentUser, setCurrentUser] = React.useState({})
 
     
 
@@ -28,9 +30,28 @@ const Courses = () => {
         
       }
 
-      const handleRegister = () => {
+      const handleRegister = async(course_id) => {
         // preventDefault();
-        navigate('/login')
+        if (currentUserType) {
+          try {
+            const response = await axios.post(
+              `http://localhost:3000/courses/${course_id}`,
+              {
+                user: currentUser.id
+              }
+            );
+      
+            alert(`${currentUser.First_name} registered successfully`);
+            navigate("/courses");
+          } catch (error) {
+            console.error("course Error:", error.message);
+          }
+          console.log('Current user:', currentUserType);
+        } else {
+          navigate("/login"); // Redirect to login screen if user is not present
+          return;
+        }
+        // navigate('/login')
       }
     
       useEffect(() => {
@@ -40,6 +61,7 @@ const Courses = () => {
         // user.Type_user==="Admin"
         if (storedUser) {
         currentUse = JSON.parse(storedUser);
+        setCurrentUser(currentUse);
         setCurrentUserType(currentUse.Type_user);
         } else {
             console.log("user not there")
@@ -82,7 +104,7 @@ const Courses = () => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Projects Data:</b>
+      <b className="Name-tag">Course </b>
       <div className="desktop-4-item login_form">
       {/* <button type="submit" onClick={handleSubmit}>Create Batch</button> */}
       {currentUserType==="Admin" && <Link to="/Create_Batch" >create batch</Link>}

@@ -38,9 +38,11 @@ const handleDelete = async(e,id) => {
         const response = await axios.delete(
           `http://localhost:3000/user/${id}`
         );
-  
-        // setUser(response.data.users)
-        alert("user deleted")
+        const responseUser = await axios.get(
+          "http://localhost:3000/user/getAllUsers"
+        );
+        setUser(responseUser.data.users)
+        
       
 }
 
@@ -56,6 +58,10 @@ const fetchUsers = async() => {
         console.error("batch Error:", error.message);
       }
 }
+
+useEffect(() => {
+
+},[user])
 
 useEffect(() => {
     fetchUsers()
@@ -80,8 +86,9 @@ useEffect(() => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Projects Data:</b>
+      <b className="Name-tag">User :</b>
       <div className="desktop-4-item">
+        <div className='deleteuser'>
       {user.map((eventItem) => {
     const xid = eventItem._id;
     return <React.Fragment key={xid}>
@@ -101,6 +108,7 @@ useEffect(() => {
           {/* <td>{course.course}</td> */}
     </React.Fragment>
 })}
+    </div>
       </div>
       <b className="sweet-water-fortwayne-container">
         <p className="sweet-water-fortwayne">&nbsp;</p>

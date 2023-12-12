@@ -60,7 +60,10 @@ const IndustryCollab = () => {
             {projects.map((project) => (
               <tr key={project._id}>
                 <td>{project.industry_name}</td>
-                <td><href>{project.industry_link}</href></td>
+                <td>
+                <a href={project.industry_link} target="_blank" rel="noopener noreferrer">
+          {project.industry_link}
+        </a></td>
               </tr>
             ))}
           </tbody>

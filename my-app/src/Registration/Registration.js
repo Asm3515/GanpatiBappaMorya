@@ -77,13 +77,13 @@ const Registration = () => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Industry Collaboration :</b>
+      <b className="Name-tag">SIGNUP</b>
       <div className="desktop-4-item">
         <form className="registration-form" onSubmit={handleFormSubmit}>
-          <div className="sign-up">Sign Up</div>
+          <div className="sign-up"></div>
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>
-            <input
+            <input className="input"
               type="string"
               id="firstName"
               value={firstName}
@@ -92,7 +92,7 @@ const Registration = () => {
           </div>
           <div className="form-group">
             <label htmlFor="lastName">Last Name:</label>
-            <input
+            <input className="input"
               type="text"
               id="lastName"
               value={lastName}
@@ -101,7 +101,7 @@ const Registration = () => {
           </div>
           <div className="form-group">
             <label htmlFor="phoneNo">Phone No:</label>
-            <input
+            <input className="input"
               type="text"
               id="phoneNo"
               value={phoneNo}
@@ -110,7 +110,7 @@ const Registration = () => {
           </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
-            <input
+            <input className="input"
               type="email"
               id="email"
               value={email}
@@ -119,7 +119,7 @@ const Registration = () => {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password:</label>
-            <input
+            <input className="input"
               type="password"
               id="password"
               value={password}
@@ -128,14 +128,14 @@ const Registration = () => {
           </div>
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input
+            <input className="input"
               type="password"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          <button type="submit" className="register">Register</button>
+          <button  type="submit" className="button">Register</button>
         </form>
       </div>
       <b className="sweet-water-fortwayne-container">

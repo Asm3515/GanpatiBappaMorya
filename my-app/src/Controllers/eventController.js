@@ -60,7 +60,7 @@ module.exports.update = function (req, res, query) {
           message: "Event not found",
         });
       }
-      event.users.push(req.body.user)
+      event.user_registered.push(req.body.user)
       console.log("Save was successful:\n", event);
       return res.json(200, {
         message: "Event updated successfully",

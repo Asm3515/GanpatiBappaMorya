@@ -18,10 +18,13 @@ import Show_Course from './Adminpages/Show_Course';
 import Courses from './Adminpages/Courses';
 import Create_Events from './Adminpages/Create_Events';
 import Roles from './Adminpages/Roles'
+import Courses_Static from './Adminpages/Events copy';
+
 
 
 function App() {
-  const [currentUserType, setCurrentUserType] = React.useState('')
+  const [currentUserType, setCurrentUserType] = React.useState('');
+  const [flag, setFlag] = React.useState(false);
   React.useEffect(() => {
     const storedUser = localStorage.getItem('user');
     // console.log(id)
@@ -32,7 +35,8 @@ function App() {
     console.log("$$$$$$$$$",currentUse)
     setCurrentUserType(currentUse.Type_user);
     } else {
-        console.log("user not there")
+        console.log("user not there");
+        setFlag(true)
     }
 
   },[])
@@ -59,9 +63,10 @@ function App() {
           <Route path="/Create_Courses" element={<Create_Courses />} />
           <Route path="/Show_Course" element={<Show_Course />} />
           <Route path="/Courses" element={<Courses />} />
-          <Route path="/Events" element={<Events />} />
+          {flag?<Route path="/Login" element={<Login_page />} />:<Route path="/Events" element={<Events />} />}
           <Route path="/Create_Events" element={<Create_Events />} />
-          {currentUserType==='Admin' && <Route path="/role" element={<Roles />} />}
+          <Route path="/Events-static" element={<Courses_Static/>}/>
+          {currentUserType==='Admin' && <Route path="/roles" element={<Roles />} />}
           {/* Add more routes for other components/pages */}
         </Routes>
       </Router>

@@ -21,10 +21,11 @@ module.exports.list = async function(req,res){
 module.exports.create = async function(req, res) {
     console.log("#############",req.body)
     try {
-        const {batch, course, material} = req.body;
+        const {batch, course, material, user} = req.body;
         const bat = await Batch.findOne({ batch:batch });
         
         const new_course = new Course({ batch, course, material });
+        new_course.user_registered.push(user);
         if(bat){
             console.log("batch", bat)
             await bat.courses.push(new_course);
@@ -82,6 +83,7 @@ module.exports.update = function(req, res, query) {
         course.batch = req.body.batch;
         course.course = req.body.course;
         course.material = req.body.material;
+        course.user_registered.push(req.body.user)
         course.save(function (error, course) {
             if (error) {
               console.log(error);

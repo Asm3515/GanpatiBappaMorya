@@ -9,46 +9,16 @@ const paths = {
   Home: "/",
 };
 
-const Courses = () => {
+const Courses_Static = () => {
   const navigate = useNavigate();
   const [currentUserType, setCurrentUserType] = useState('');
-
-  const handleRegister = async (e, id) => {
-    e.preventDefault();
-
-    const storedUser = localStorage.getItem('user');
-    let currentUser = null;
-
-    if (storedUser) {
-      currentUser = JSON.parse(storedUser);
-      console.log('Current user:', currentUser);
-    } else {
-      navigate("/login"); // Redirect to login screen if user is not present
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/event/${id}`,
-        {
-          user: currentUser._id
-        }
-      );
-
-      alert(`${currentUser.First_name} registered successfully`);
-      navigate("/events");
-    } catch (error) {
-      console.error("course Error:", error.message);
-    }
-  };
-
   const [events, setEvents] = useState([]);
 
   const fetchProjects = () => {
     fetch("http://localhost:3000/event/")
       .then(response => response.json())
       .then(data => setEvents(data.event));
-  };
+  }
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -58,13 +28,19 @@ const Courses = () => {
       currentUser = JSON.parse(storedUser);
       console.log('Current user:', currentUser);
     } else {
-      navigate("/login"); // Redirect to login screen if user is not present
-      return;
+      alert("User not found");
     }
 
     setCurrentUserType(currentUser.Type_user);
     fetchProjects();
   }, []);
+
+  const handleRegister = async (e, id) => {
+    e.preventDefault();
+
+      navigate("/login");
+   
+  }
 
   const onHOMETextClick = useCallback(() => {
     // Please sync "Desktop - 1" to the project
@@ -87,10 +63,10 @@ const Courses = () => {
       </div>
       <img className="image-2-icon" alt="" src={Logo} />
       <img className="desktop-4-child" alt="" src="/line-1.svg" />
-      <b className="Name-tag">Events Details:</b>
+      <b className="Name-tag">Projects Data:</b>
       <div className="desktop-4-item login_form">
         {currentUserType === 'Admin' && <Link to="/Create_Events">create events</Link>}
-        <br />
+        <br/>
         {events.length > 0 ? (
           <table>
             <tbody>
@@ -108,7 +84,7 @@ const Courses = () => {
                           border: 'none',
                           cursor: 'pointer'
                         }}
-                        onClick={(e) => { console.log(xid); handleRegister(e, xid); }}
+                        onClick={(e) => { handleRegister(e, xid); }}
                       >
                         Register
                       </button>
@@ -132,4 +108,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Courses_Static;

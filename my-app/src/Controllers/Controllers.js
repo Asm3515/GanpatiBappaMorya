@@ -79,7 +79,7 @@ const deleteUser = async (req, res, next) => {
     const id = req.params.id;
     let user;
     try {
-      user = await User.findByIdAndRemove(id);
+      user = await User.findOneAndDelete({_id: id});
     } catch (err) {
       return console.log(err);
     }
